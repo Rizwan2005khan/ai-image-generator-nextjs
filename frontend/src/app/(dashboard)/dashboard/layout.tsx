@@ -3,6 +3,16 @@ import "~/styles/globals.css"
 import { Providers } from "~/components/providers";
 
 import { Toaster } from "sonner";
+import type { Metadata } from "next";
+import { SidebarInset, SidebarTrigger } from "~/components/ui/sidebar";
+import { Separator } from "~/components/ui/separator";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList } from "~/components/ui/breadcrumb";
+
+export const metadata: Metadata = {
+  title: "AI Image Generator",
+  description: "AI Image Generator - Turn text prompts into images",
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
+};
 
 
 export default function RootLayout({
@@ -10,6 +20,25 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode}>) {
     return (
         <Providers>
+            <SidebarTrigger />
+            <SidebarInset className="flex h-screen flex-col">
+               <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 border-border/40 sticky top-0 z-10 border-b px-6 py-3 shadow-sm backdrop-blur">
+               <div className="flex shrink-0 grow items-center-gap-3">
+                <SidebarTrigger className="hover:bg-muted -ml-1 h-8 w-8 transition-colors" />
+                <Separator 
+                orientation="vertical"
+                className="mr-2 h-6 data-[orientation=vertical]:h-6"
+                />
+                <Breadcrumb>
+                <BreadcrumbList>
+                <BreadcrumbItem>
+                <BreadcrumbPageClient />
+                </BreadcrumbItem>
+                </BreadcrumbList>
+                </Breadcrumb>
+               </div>
+               </header> 
+            </SidebarInset>
             {children}
             <Toaster />
         </Providers>
